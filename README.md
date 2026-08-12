@@ -1,7 +1,4 @@
-# bus-ticketing-aws-devops
-A production-shaped bus ticketing system: Node.js, PostgreSQL, Stripe, Docker, Kubernetes (EKS), Terraform, GitHub Actions CI/CD, Prometheus/Grafana.
-
-# RouteLine — Bus Ticketing & Payment System
+Bus Ticketing & Payment System
 
 A production-shaped bus ticketing platform built to demonstrate a full, real-world
 DevOps pipeline: containerization, infrastructure as code, container orchestration,
