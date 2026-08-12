@@ -1,0 +1,52 @@
+name: Build and Deploy to EKS
+
+# This is the trigger — the "when" part. Runs automatically every time
+# code is pushed to the main branch.
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: grab your latest code onto GitHub's temporary computer
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: log this temporary computer into AWS, using the secrets
+      # you just stored — never hardcoded, always pulled from the vault
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      # Step 3: log Docker into your private ECR registry
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # Step 4: build a fresh image from your current code, and push it
+      - name: Build, tag, and push image
+        env:
+          ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_URL }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REPOSITORY:latest .
+          docker push $ECR_REPOSITORY:$IMAGE_TAG
+          docker push $ECR_REPOSITORY:latest
+
+      # Step 5: point kubectl at your real cluster
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --name bus-ticketing-cluster --region us-east-1
+
+      # Step 6: tell the running Deployment to switch to the new image.
+      # This triggers the exact same safe rolling update you saw manually
+      # earlier — new pod created, health-checked, THEN old one removed.
+      - name: Deploy to EKS
+        run: |
+          kubectl set image deployment/bus-ticketing-app app=${{ secrets.ECR_REPOSITORY_URL }}:${{ github.sha }}
+          kubectl rollout status deployment/bus-ticketing-app
