@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RouteLine — Bus Ticketing</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>RouteLine</h1>
+    <p class="sub">Book intercity bus tickets. Routes and seat availability are read live from the database.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="bus-list">
+    <% buses.forEach(function(bus) { %>
+      <div class="bus-card">
+        <div class="route">
+          <span><%= bus.route_from %></span>
+          <span class="arrow">&rarr;</span>
+          <span><%= bus.route_to %></span>
+        </div>
+        <div class="meta">
+          <span>Departs <%= bus.departure_time %></span>
+          <span><%= bus.total_seats %> seats</span>
+        </div>
+        <div class="price-row">
+          <span class="price">$<%= (bus.price_cents / 100).toFixed(2) %></span>
+          <a href="/book/<%= bus.id %>" class="btn">Select seat</a>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</main>
+
+<footer class="wrap">
+  <p>Test-mode payments via Stripe — no real charges. Built for AWS + Kubernetes deployment.</p>
+</footer>
+</body>
+</html>

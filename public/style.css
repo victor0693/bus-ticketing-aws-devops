@@ -1,0 +1,53 @@
+:root{
+  --bg: #0f1720;
+  --surface: #16202b;
+  --line: #263140;
+  --accent: #4f8fe8;
+  --accent-2: #e8b34f;
+  --text: #eef2f4;
+  --text-muted: #93a1ac;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+body{background:var(--bg); color:var(--text); font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height:1.6;}
+.wrap{max-width:680px; margin:0 auto; padding:0 20px;}
+header{padding:48px 0 28px; border-bottom:1px solid var(--line);}
+h1{font-size:1.9rem; margin-bottom:8px;}
+.sub{color:var(--text-muted); font-size:0.95rem;}
+main{padding:36px 0;}
+
+.bus-list{display:flex; flex-direction:column; gap:16px;}
+.bus-card{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:20px;}
+.route{font-size:1.1rem; font-weight:600; margin-bottom:6px;}
+.arrow{color:var(--accent); margin:0 8px;}
+.meta{display:flex; gap:16px; color:var(--text-muted); font-size:0.85rem; margin-bottom:14px;}
+.price-row{display:flex; justify-content:space-between; align-items:center;}
+.price{color:var(--accent-2); font-weight:700; font-size:1.1rem;}
+
+.btn{
+  display:inline-block; background:var(--accent); color:#0e1417;
+  padding:10px 18px; border-radius:4px; font-weight:600; font-size:0.9rem;
+  text-decoration:none; border:none; cursor:pointer;
+}
+.btn:hover{opacity:0.9;}
+
+.book-form{
+  background:var(--surface); border:1px solid var(--line); border-radius:8px;
+  padding:24px; display:flex; flex-direction:column; gap:6px; margin-bottom:20px;
+}
+.book-form label{font-size:0.85rem; color:var(--text-muted); margin-top:10px;}
+.book-form input, .book-form select{
+  background:var(--bg); border:1px solid var(--line); border-radius:4px;
+  color:var(--text); padding:10px 12px; font-size:0.95rem;
+}
+.book-form button{
+  margin-top:16px; background:var(--accent); color:#0e1417; border:none;
+  border-radius:4px; padding:12px; font-weight:600; font-size:0.95rem; cursor:pointer;
+}
+
+.note{color:var(--text-muted); font-size:0.85rem;}
+.note code{background:var(--surface); padding:2px 6px; border-radius:3px;}
+
+.confirm-card{background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:24px;}
+.confirm-card p{margin-bottom:14px;}
+
+footer{border-top:1px solid var(--line); padding:24px 0 48px; color:var(--text-muted); font-size:0.82rem;}

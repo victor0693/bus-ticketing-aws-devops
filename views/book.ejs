@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book — <%= bus.route_from %> to <%= bus.route_to %></title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1><%= bus.route_from %> &rarr; <%= bus.route_to %></h1>
+    <p class="sub">Departs <%= bus.departure_time %> &middot; $<%= (bus.price_cents / 100).toFixed(2) %> per seat</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <form action="/book/<%= bus.id %>" method="POST" class="book-form">
+    <label for="passenger_name">Passenger name</label>
+    <input type="text" id="passenger_name" name="passenger_name" required maxlength="80">
+
+    <label for="seat_number">Seat number (1&ndash;<%= bus.total_seats %>)</label>
+    <select id="seat_number" name="seat_number" required>
+      <% for (let i = 1; i <= bus.total_seats; i++) { %>
+        <% if (!bookedSeats.includes(i)) { %>
+          <option value="<%= i %>">Seat <%= i %></option>
+        <% } %>
+      <% } %>
+    </select>
+
+    <button type="submit">Continue to payment</button>
+  </form>
+
+  <p class="note">You'll be redirected to Stripe's secure checkout. This is test mode — use card number
+  <code>4242 4242 4242 4242</code>, any future expiry date, and any 3-digit CVC.</p>
+</main>
+</body>
+</html>

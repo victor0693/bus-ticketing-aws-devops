@@ -1,0 +1,19 @@
+{
+  "name": "bus-ticketing-app",
+  "version": "1.0.0",
+  "description": "A dynamic bus ticketing and payment system built with Node.js, Express, PostgreSQL, and Stripe (test mode), designed for containerized and Kubernetes deployment on AWS.",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "stripe": "^16.2.0"
+  }
+}
