@@ -4,3 +4,6 @@ node_modules/
 Thumbs.db
 *.log
 *Zone.Identifier*
+infra/.terraform/
+*.tfstate
+*.tfstate.backup
